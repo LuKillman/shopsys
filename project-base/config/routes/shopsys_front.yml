@@ -15,6 +15,12 @@ front_cart_box:
     defaults:
         _controller: App\Controller\Front\CartController:boxAction
 
+front_cart_box_items:
+    path: /cart/box/items/
+    defaults:
+        _controller: App\Controller\Front\CartController:boxItemsAction
+    condition: "request.isXmlHttpRequest()"
+
 front_cart_delete:
     path: /cart/delete/{cartItemId}/
     defaults:
