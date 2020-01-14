@@ -1,6 +1,7 @@
 # Frontend
 
 ## Getting started
+* [Introduction to npm, webpack and webpack encore](frontend-npm-webpack.md)
 * [Design implementation and Customization](./design-implementation-and-customization.md)
 * [Introduction to LESS](./introduction-to-less.md)
 * [Understanding the Style Directory](./understanding-the-style-directory.md)
