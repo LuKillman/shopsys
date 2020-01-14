@@ -1,3 +1,4 @@
+@cart-content-width: 400px;
 @cart-icon-width: 30px;
 @cart-icon-gap: 10px;
 @cart-z-index: 6000;
@@ -55,6 +56,7 @@
         &__detail {
             display: none;
             position: absolute;
+            min-width: @cart-content-width;
             top: calc(~"100% - 1px");
             right: 0;
             z-index: @cart-z-index;
