@@ -148,16 +148,6 @@ class CartController extends FrontBaseController
         ]);
     }
 
-    public function boxItemsAction()
-    {
-        $orderPreview = $this->orderPreviewFactory->createForCurrentUser();
-
-        return $this->render('Front/Inline/Cart/cartBoxItems.html.twig', [
-            'cart' => $this->cartFacade->findCartOfCurrentCustomerUser(),
-            'productsPrice' => $orderPreview->getProductsPrice(),
-        ]);
-    }
-
     /**
      * @param \App\Model\Product\Product $product
      * @param string $type
