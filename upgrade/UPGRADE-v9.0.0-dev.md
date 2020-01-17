@@ -564,5 +564,5 @@ There you can find links to upgrade notes for other versions too.
 
 ### Frontend
 
-- javascript assets are manage by webpack and npm ([#1498](https://github.com/shopsys/shopsys/pull/1545))
+- javascript assets are managed by webpack and npm ([#1498](https://github.com/shopsys/shopsys/pull/1545))
     - please read [upgrade instruction for webpack](https://github.com/shopsys/shopsys/blob/9.0/upgrade/upgrade-instruction-for-webpack.md)
