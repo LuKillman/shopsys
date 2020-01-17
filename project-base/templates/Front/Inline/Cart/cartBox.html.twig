@@ -1,3 +1,5 @@
+{% import 'Front/Inline/Cart/cartBoxItemMacro.html.twig' as cartBoxItem %}
+
 <div id="js-cart-box"
     {% if cart is not null and getRoute() not in pagesWithDisabledCartHover %}
         class="js-hover-intent{% if isIntentActive %} active{% endif %}"
@@ -26,7 +28,7 @@
                 <div class="cart-detail__wrap">
                     <ul class="cart-detail">
                         {% for cartItem in cart.items %}
-                            {{ _self.cartItem(cartItem) }}
+                            {{ cartBoxItem.item(cartItem) }}
                         {% endfor %}
                     </ul>
                     <div class="cart-detail__total">
@@ -58,29 +60,3 @@
         </a>
     </div>
 </div>
-
-{% macro cartItem(cartItem) %}
-    {% set product = cartItem.product %}
-    <li class="cart-detail__item">
-        <div class="cart-detail__item__image">
-            {{ image(product) }}
-        </div>
-        <div class="cart-detail__item__content">
-            <a class="cart-detail__item__content__title" href="{{ url('front_product_detail', {'id': product.id}) }}" title="{{ product.name }}">
-                {{ product.name }}
-            </a>
-            <span class="cart-detail__item__content__price">
-                {{ cartItem.watchedPrice|price}}
-            </span>
-        </div>
-        <div class="cart-detail__item__pieces">
-            {{ cartItem.quantity|formatNumber }} {{ product.unit.name }}
-        </div>
-        <a
-                class="cart-detail__item__remove js-cart-item-remove-button"
-                href="{{ url('front_cart_delete_ajax', {cartItemId: cartItem.id, _token: csrf_token('front_cart_delete_' ~ cartItem.id)}) }}"
-                title="{{ 'Remove item'|trans }}">
-            <i class="svg svg-remove"></i>
-        </a>
-    </li>
-{% endmacro %}
