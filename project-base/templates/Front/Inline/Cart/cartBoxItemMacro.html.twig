@@ -16,7 +16,7 @@
             {{ cartItem.quantity|formatNumber }} {{ product.unit.name }}
         </div>
         <a
-                class="cart-detail__item__remove js-cart-item-remove-button"
+                class="cart-detail__item__remove js-cart-box-item-remove-button"
                 href="{{ url('front_cart_delete_ajax', {cartItemId: cartItem.id, _token: csrf_token('front_cart_delete_' ~ cartItem.id)}) }}"
                 title="{{ 'Remove item'|trans }}">
             <i class="svg svg-remove"></i>

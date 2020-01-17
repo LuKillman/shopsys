@@ -2,7 +2,7 @@
 
 <div id="js-cart-box"
     {% if cart is not null and getRoute() not in pagesWithDisabledCartHover %}
-        class="js-hover-intent{% if isIntentActive %} active{% endif %}"
+        class="js-hover-intent{% if isIntentActive is same as('true') %} active{% endif %}"
         data-hover-intent-class-for-open="active"
     {% endif %}
     data-reload-url="{{ url('front_cart_box') }}"
