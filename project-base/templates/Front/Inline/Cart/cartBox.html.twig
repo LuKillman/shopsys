@@ -1,8 +1,5 @@
-{% set route = getRoute() %}
-{% set pagesWithDisabledCartHover = ['front_cart', 'front_error_page', 'front_order_index', 'front_order_sent'] %}
-
 <div id="js-cart-box"
-        {% if cart is not null and route not in pagesWithDisabledCartHover %}
+        {% if cart is not null and getRoute() not in pagesWithDisabledCartHover %}
             class="js-hover-intent{% if isIntentActive %} active{% endif %}"
             data-hover-intent-class-for-open="active"
         {% endif %}

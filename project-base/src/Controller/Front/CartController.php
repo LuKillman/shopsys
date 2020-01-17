@@ -25,6 +25,8 @@ class CartController extends FrontBaseController
 
     public const RECALCULATE_ONLY_PARAMETER_NAME = 'recalculateOnly';
 
+    public const PAGES_WITH_DISABLED_CART_HOVER = ['front_cart', 'front_error_page', 'front_order_index', 'front_order_sent'];
+
     /**
      * @var \Shopsys\FrameworkBundle\Model\Cart\CartFacade
      */
@@ -149,6 +151,7 @@ class CartController extends FrontBaseController
             'cart' => $this->cartFacade->findCartOfCurrentCustomerUser(),
             'productsPrice' => $orderPreview->getProductsPrice(),
             'isIntentActive' => $request->get('isIntentActive'),
+            'pagesWithDisabledCartHover' => self::PAGES_WITH_DISABLED_CART_HOVER,
         ]);
     }
 
