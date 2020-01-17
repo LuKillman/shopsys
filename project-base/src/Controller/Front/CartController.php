@@ -148,7 +148,7 @@ class CartController extends FrontBaseController
         return $this->render('Front/Inline/Cart/cartBox.html.twig', [
             'cart' => $this->cartFacade->findCartOfCurrentCustomerUser(),
             'productsPrice' => $orderPreview->getProductsPrice(),
-            'isIntentActive' => $request->get('isIntentActive')
+            'isIntentActive' => $request->get('isIntentActive'),
         ]);
     }
 

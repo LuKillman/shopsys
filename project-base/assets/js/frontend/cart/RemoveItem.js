@@ -4,7 +4,7 @@ import Window from '../utils/window';
 
 export default class RemoveItem {
 
-    static init() {
+    static init () {
         document.getElementsByClassName('js-cart-item-remove-button').forEach(element => {
             element.addEventListener('click', event => {
                 event.preventDefault();
