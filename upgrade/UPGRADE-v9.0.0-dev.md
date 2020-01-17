@@ -513,6 +513,15 @@ There you can find links to upgrade notes for other versions too.
 - add cart detail on hover ([#1565](https://github.com/shopsys/shopsys/pull/1565))
   
   - you can skip this task if you have your custom design
+  - Add new file [src/Resources/styles/front/common/layout/header/cart-detail.less](https://github.com/shopsys/shopsys/blob/9.0/project-base/src/Resources/styles/front/common/layout/header/cart-detail.less)
+  - Update your src/Resources/styles/front/common/layout/header/cart.less [diff](https://github.com/shopsys/shopsys/pull/1565/files#diff-bc98fd209f1c026440cbf870086beece)
+  - Update your src/Resources/styles/front/common/main.less
+      ```diff
+      + @import "layout/header/cart-detail.less";
+      ```
+  - Add new file [templates/Front/Inline/Cart/cartBoxItemMacro.html.twig](https://github.com/shopsys/shopsys/blob/9.0/project-base/templates/Front/Inline/Cart/cartBoxItemMacro.html.twig)
+  - Update your templates/Front/Inline/Cart/cartBox.html.twig [diff](https://github.com/shopsys/shopsys/pull/1565/files#diff-41605908c87d6192f16bdf03da67b192)
+  - Update your templates/Front/Layout/header.html.twig [diff](https://github.com/shopsys/shopsys/pull/1565/files#diff-fec16681aa60ba908bc8e574d24de3fd)
   - Add new file [assets/js/frontend/cart/RemoveItem.js](https://github.com/shopsys/shopsys/blob/9.0/project-base/assets/js/frontend/cart/RemoveItem.js)]
   - Update assets/js/frontend/cart/cartBox.js
       ```diff
@@ -535,6 +544,9 @@ There you can find links to upgrade notes for other versions too.
   
   - Update your src/Controller/Front/CartController.php
       ```diff
+      + public const PAGES_WITH_DISABLED_CART_HOVER = ['front_cart', 'front_error_page', 'front_order_index', 'front_order_sent'];
+
+    
       + /**
       +  * @param \Symfony\Component\HttpFoundation\Request $request
       +  */
@@ -547,6 +559,7 @@ There you can find links to upgrade notes for other versions too.
                 'cart' => $this->cartFacade->findCartOfCurrentCustomerUser(),
                 'productsPrice' => $orderPreview->getProductsPrice(),
       +         'isIntentActive' => $request->get('isIntentActive'),
+      +         'pagesWithDisabledCartHover' => self::PAGES_WITH_DISABLED_CART_HOVER,
             ]);
         }
       
@@ -591,18 +604,7 @@ There you can find links to upgrade notes for other versions too.
       +         cartItemId: \d+
       +     condition: "request.isXmlHttpRequest()"
       ```
-  - update your templates/Front/Inline/Cart/cartBox.html.twig
-      ```diff
-        <div id="js-cart-box"
-           {% if cart is not null and route not in pagesWithDisabledCartHover %}
-      -         class="js-hover-intent"
-      +         class="js-hover-intent{% if isIntentActive %} active{% endif %}"
-                data-hover-intent-class-for-open="active"
-           {% endif %}
-           data-reload-url="{{ url('front_cart_box') }}"
-        >
-      ```
-
+  
 ### Tools
 
 - apply coding standards checks on your `app` folder ([#1306](https://github.com/shopsys/shopsys/pull/1306))
