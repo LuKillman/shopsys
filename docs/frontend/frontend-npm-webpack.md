@@ -37,7 +37,7 @@ export default function counterUpInit () {
 }
 ```
 
-When compiling your application the process is clever enough to understand when a dependency has already been imported from a different file - meaning that everything is ultimately only ever imported once. However, by having to import dependencies into each file, you ensure that that particular file will work independently. 
+When compiling your application the process is clever enough to understand when a dependency has already been imported from a different file - meaning that everything is ultimately only ever imported once. However, by having to import dependencies into each file, you ensure that that particular file will work independently.
 
 If you want to add a new component that will listen to a certain event (for example), you have to import the component in the main file. For project-base, this is the `assets/frontend/app.js` file, for the administration is the` assets/admin/admin.js` file. The addition works just like a component installed over npm except that relative paths are used.
 
