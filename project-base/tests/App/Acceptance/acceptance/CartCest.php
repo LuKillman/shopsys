@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\App\Acceptance\acceptance;
 
+use Facebook\WebDriver\WebDriverBy;
 use Tests\App\Acceptance\acceptance\PageObject\Front\CartBoxPage;
 use Tests\App\Acceptance\acceptance\PageObject\Front\CartPage;
 use Tests\App\Acceptance\acceptance\PageObject\Front\FloatingWindowPage;
@@ -146,7 +147,7 @@ class CartCest
         $me->amOnLocalizedRoute('front_product_detail', ['id' => 1]);
         $me->seeTranslationFrontend('Add to cart');
         $productDetailPage->addProductIntoCart(3);
-        $me->clickByTranslationFrontend('Go to cart');
+        $me->clickByTranslationFrontend('Go to cart', 'messages', [], WebDriverBy::cssSelector('#window-main-container'));
 
         $cartPage->changeProductQuantity('22" Sencor SLE 22F46DM4 HELLO KITTY', 10);
 

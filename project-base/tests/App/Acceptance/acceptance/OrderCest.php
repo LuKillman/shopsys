@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\App\Acceptance\acceptance;
 
+use Facebook\WebDriver\WebDriverBy;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Script\ScriptFacade;
 use Tests\App\Acceptance\acceptance\PageObject\Front\OrderPage;
@@ -31,7 +32,8 @@ class OrderCest
         // tv-audio
         $me->amOnLocalizedRoute('front_product_list', ['id' => 3]);
         $productListPage->addProductToCartByName('Defender 2.0 SPK-480');
-        $me->clickByTranslationFrontend('Go to cart');
+        $me->waitForAjax();
+        $me->clickByTranslationFrontend('Go to cart', 'messages', [], WebDriverBy::cssSelector('#window-main-container'));
         $me->clickByTranslationFrontend('Order [verb]');
 
         $orderPage->assertTransportIsNotSelected('Czech post');
@@ -62,7 +64,7 @@ class OrderCest
         // tv-audio
         $me->amOnLocalizedRoute('front_product_list', ['id' => 3]);
         $productListPage->addProductToCartByName('Defender 2.0 SPK-480');
-        $me->clickByTranslationFrontend('Go to cart');
+        $me->clickByTranslationFrontend('Go to cart', 'messages', [], WebDriverBy::cssSelector('#window-main-container'));
         $me->clickByTranslationFrontend('Order [verb]');
 
         $orderPage->assertTransportIsNotSelected('Czech post');
@@ -90,7 +92,7 @@ class OrderCest
         // tv-audio
         $me->amOnLocalizedRoute('front_product_list', ['id' => 3]);
         $productListPage->addProductToCartByName('Defender 2.0 SPK-480');
-        $me->clickByTranslationFrontend('Go to cart');
+        $me->clickByTranslationFrontend('Go to cart', 'messages', [], WebDriverBy::cssSelector('#window-main-container'));
         $me->clickByTranslationFrontend('Order [verb]');
         $orderPage->selectTransport(self::TRANSPORT_CZECH_POST_POSITION);
         $me->waitForAjax();
@@ -148,7 +150,7 @@ class OrderCest
         // tv-audio
         $me->amOnLocalizedRoute('front_product_list', ['id' => 3]);
         $productListPage->addProductToCartByName('Defender 2.0 SPK-480');
-        $me->clickByTranslationFrontend('Go to cart');
+        $me->clickByTranslationFrontend('Go to cart', 'messages', [], WebDriverBy::cssSelector('#window-main-container'));
         $me->clickByTranslationFrontend('Order [verb]');
 
         $orderPage->selectTransport(self::TRANSPORT_CZECH_POST_POSITION);

@@ -605,6 +605,7 @@ There you can find links to upgrade notes for other versions too.
       +     condition: "request.isXmlHttpRequest()"
       ```
   
+  - Fixed your CartCest [diff]() and OrderCest [diff]()
 ### Tools
 
 - apply coding standards checks on your `app` folder ([#1306](https://github.com/shopsys/shopsys/pull/1306))
