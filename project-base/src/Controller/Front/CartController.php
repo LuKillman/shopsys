@@ -138,13 +138,17 @@ class CartController extends FrontBaseController
         ]);
     }
 
-    public function boxAction()
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function boxAction(Request $request)
     {
         $orderPreview = $this->orderPreviewFactory->createForCurrentUser();
 
         return $this->render('Front/Inline/Cart/cartBox.html.twig', [
             'cart' => $this->cartFacade->findCartOfCurrentCustomerUser(),
             'productsPrice' => $orderPreview->getProductsPrice(),
+            'isIntentActive' => $request->get('isIntentActive')
         ]);
     }
 
@@ -331,5 +335,35 @@ class CartController extends FrontBaseController
         }
 
         return $this->redirectToRoute('front_cart');
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int $cartItemId
+     */
+    public function deleteAjaxAction(Request $request, $cartItemId)
+    {
+        $cartItemId = (int)$cartItemId;
+        $token = new CsrfToken('front_cart_delete_' . $cartItemId, $request->query->get('_token'));
+
+        if ($this->get('security.csrf.token_manager')->isTokenValid($token)) {
+            try {
+                $this->cartFacade->deleteCartItem($cartItemId);
+            } catch (\Shopsys\FrameworkBundle\Model\Cart\Exception\InvalidCartItemException $ex) {
+                return $this->json([
+                    'success' => false,
+                    'errorMessage' => $ex->getMessage(),
+                ]);
+            }
+        } else {
+            return $this->json([
+                'success' => false,
+                'errorMessage' => t('Unable to remove item from cart. The link for removing it probably expired, try it again.'),
+            ]);
+        }
+
+        return $this->json([
+            'success' => true,
+        ]);
     }
 }

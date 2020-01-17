@@ -510,6 +510,99 @@ There you can find links to upgrade notes for other versions too.
         +   ): ProductFilterCountData;
         ```
 
+- add cart detail on hover ([#1565](https://github.com/shopsys/shopsys/pull/1565))
+  
+  - you can skip this task if you have your custom design
+  - Add new file [assets/js/frontend/cart/RemoveItem.js](https://github.com/shopsys/shopsys/blob/9.0/project-base/assets/js/frontend/cart/RemoveItem.js)]
+  - Update assets/js/frontend/cart/cartBox.js
+      ```diff
+        Ajax.ajax({
+            loaderElement: '#js-cart-box',
+            url: $(event.currentTarget).data('reload-url'),
+      +     data: {'isIntentActive': $(event.currentTarget).hasClass('active')},
+            type: 'get',
+            success: function (data) {
+                $('#js-cart-box').replaceWith(data);
+                ...
+            }
+        });
+      ```
+  
+  - Update assets/js/frontend/cart/cartBox.js
+      ```diff
+      + import './RemoveItem';
+      ```
+  
+  - Update your src/Controller/Front/CartController.php
+      ```diff
+      + /**
+      +  * @param \Symfony\Component\HttpFoundation\Request $request
+      +  */
+      - public function boxAction(Request $request)
+      + public function boxAction(Request $request)
+        {
+            $orderPreview = $this->orderPreviewFactory->createForCurrentUser();
+      
+            return $this->render('Front/Inline/Cart/cartBox.html.twig', [
+                'cart' => $this->cartFacade->findCartOfCurrentCustomerUser(),
+                'productsPrice' => $orderPreview->getProductsPrice(),
+      +         'isIntentActive' => $request->get('isIntentActive'),
+            ]);
+        }
+      
+      + /**
+      +  * @param \Symfony\Component\HttpFoundation\Request $request
+      +  * @param int $cartItemId
+      +  */
+      + public function deleteAjaxAction(Request $request, $cartItemId)
+      + {
+      +     $cartItemId = (int)$cartItemId;
+      +     $token = new CsrfToken('front_cart_delete_' . $cartItemId, $request->query->get('_token'));
+      + 
+      +     if ($this->get('security.csrf.token_manager')->isTokenValid($token)) {
+      +         try {
+      +             $this->cartFacade->deleteCartItem($cartItemId);
+      +         } catch (\Shopsys\FrameworkBundle\Model\Cart\Exception\InvalidCartItemException $ex) {
+      +             return $this->json([
+      +                 'success' => false,
+      +                 'errorMessage' => $ex->getMessage(),
+      +             ]);
+      +         }
+      +     } else {
+      +         return $this->json([
+      +             'success' => false,
+      +             'errorMessage' => t('Unable to remove item from cart. The link for removing it probably expired, try it again.'),
+      +         ]);
+      +     }
+    
+      +     return $this->json([
+      +         'success' => true,
+      +     ]);
+      + }
+      ```
+  
+  - Update your config/routes/shopsys_front.yml
+      ```diff
+      + front_cart_delete_ajax:
+      +     path: /cart/delete-ajax/{cartItemId}/
+      +     defaults:
+      +         _controller: App\Controller\Front\CartController:deleteAjaxAction
+      +     requirements:
+      +         cartItemId: \d+
+      +     condition: "request.isXmlHttpRequest()"
+      ```
+  - update your templates/Front/Inline/Cart/cartBox.html.twig
+      ```diff
+        <div id="js-cart-box"
+           {% if cart is not null and route not in pagesWithDisabledCartHover %}
+      -         class="js-hover-intent"
+      +         class="js-hover-intent{% if isIntentActive %} active{% endif %}"
+                data-hover-intent-class-for-open="active"
+           {% endif %}
+           data-reload-url="{{ url('front_cart_box') }}"
+        >
+      ```
+
 ### Tools
 
 - apply coding standards checks on your `app` folder ([#1306](https://github.com/shopsys/shopsys/pull/1306))
