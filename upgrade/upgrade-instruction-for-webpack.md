@@ -89,7 +89,7 @@ webpack_encore:
 - Copy folder [assets/js/bin](https://github.com/shopsys/shopsys/tree/9.0/project-base/assets/js/bin) into your assets/js folder
 - Copy folder [assets/js/utils](https://github.com/shopsys/shopsys/tree/9.0/project-base/assets/js/utils) into your assets/js folder 
 
-- Create file ./assets/js/app.js and import in it all your frontend javascripts (you can inspirated on [github](https://github.com/shopsys/shopsys/blob/9.0/project-base/assets/js/app.js)) or app.js can look like this:
+- Create file ./assets/js/frontend.js and import in it all your frontend javascripts (you can inspirated on [github](https://github.com/shopsys/shopsys/blob/9.0/project-base/assets/js/app.js)) or frontend.js can look like this:
 ```diff
 + import $ from 'jquery';
 

@@ -39,10 +39,10 @@ export default function counterUpInit () {
 
 When compiling your application the process is clever enough to understand when a dependency has already been imported from a different file - meaning that everything is ultimately only ever imported once. However, by having to import dependencies into each file, you ensure that that particular file will work independently.
 
-If you want to add a new component that will listen to a certain event (for example), you have to import the component in the main file. For project-base, this is the `assets/frontend/app.js` file, for the administration is the` assets/admin/admin.js` file. The addition works just like a component installed over npm except that relative paths are used.
+If you want to add a new component that will listen to a certain event (for example), you have to import the component in the main file. For project-base, this is the `assets/frontend/frontend.js` file, for the administration is the` assets/admin/admin.js` file. The addition works just like a component installed over npm except that relative paths are used.
 
 ```js
-    // assets/frontend/app.js
+    // assets/frontend/frontend.js
     import './components/counterUpInit';
     ...
 ```
@@ -63,7 +63,7 @@ When we are editing a javascripts and friends files, the change must go through 
 - you have to run `npm run watch` in project-base (project root). You can run it in docker or on local (when you have installed npm)
 - you can create new javascript file (path of new file is `assets/frontend/myNewFile.js`)
 - you can use this new file in some other file (`import ./frontend/myNewFile.js`)
-- or, when file contains global event listener, import new file in `assets/frontend/app.js` (`import ./myNewFile.js`)
+- or, when file contains global event listener, import new file in `assets/frontend/frontend.js` (`import ./myNewFile.js`)
 
 ### I want to add new javascript file on admin
 
@@ -85,7 +85,7 @@ When we are editing a javascripts and friends files, the change must go through 
 For example, we can override method `showFormErrorsWindowOnFrontend` from `@shopsys/framework/common/validation/customizeBundle.js` on frontend.
 
 - you have to run `npm run watch` in project-base (project root). You can run it in docker or on local (when you have installed npm)
-- you have to import CustomizeBundle in `assets/frontnd/app.js`
+- you have to import CustomizeBundle in `assets/frontnd/frontend.js`
 ```js
 import CustomizeBundle from 'framework/common/validation/customizeBundle';
 ...
