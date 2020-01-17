@@ -58,14 +58,14 @@ When we are editing a javascripts and friends files, the change must go through 
 - (you may notice changes in the console)
 - you can test changes (after page reload)
 
-### I want to add new javascript file on frontend
+### I want to add new javascript file to frontend
 
 - you have to run `npm run watch` in project-base (project root). You can run it in docker or on local (when you have installed npm)
 - you can create new javascript file (path of new file is `assets/frontend/myNewFile.js`)
 - you can use this new file in some other file (`import ./frontend/myNewFile.js`)
 - or, when file contains global event listener, import new file in `assets/frontend/frontend.js` (`import ./myNewFile.js`)
 
-### I want to add new javascript file on admin
+### I want to add new javascript file to admin
 
 - you have to run `npm run watch` in project-base (project root). You can run it in docker or on local (when you have installed npm)
 - you can create new javascript file (path of new file is `assets/admin/myNewFile.js`)
